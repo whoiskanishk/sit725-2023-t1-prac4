@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locate a Socket</title>
+    <style>
+        /* General styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        
+        /* Header styling */
+        .header-container {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Navigation bar styling */
+        .main-nav .nav-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        .main-nav .nav-list li {
+            display: inline-block;
+        }
+
+        .main-nav .nav-list li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .main-nav .nav-list li a:hover {
+            background-color: #555;
+        }
+
+        /* Main content styling */
+        main {
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Welcome to Locate a Socket</h1>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="#" class="nav-link">Home</a></li>
+                    <li><a href="#" class="nav-link">Search</a></li>
+                    <li><a href="#" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section>
+            <h2>Find Electric Vehicle Charging Stations Near You</h2>
+            <p>Use our app to locate EV charging stations close to your location.</p>
+        </section>
+        <section>
+            <h2>Features</h2>
+            <ul>
+                <li>Real-time availability</li>
+                <li>Easy navigation</li>
+                <li>User reviews and ratings</li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Locate a Socket. All rights reserved.</p>
+    </footer>
+    <script>
+        fetch('/api/stations')
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            const section = document.createElement('section');
+            const heading = document.createElement('h2');
+            heading.textContent = 'Available Charging Stations';
+            section.appendChild(heading);
+
+            const list = document.createElement('ul');
+            data.forEach(station => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${station.name} - Availability: ${station.availability ? 'Yes' : 'No'}`;
+                list.appendChild(listItem);
+            });
+
+            section.appendChild(list);
+            document.querySelector('main').appendChild(section);
+          })
+          .catch(error => console.error('Error fetching stations:', error));
+    </script>
+</body>
+</html>
